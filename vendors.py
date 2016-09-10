@@ -1,13 +1,13 @@
 def realizar_estadistica():
     vendors = buscar_vendors_cant()
-    tot_vendors = 0
+    tot_macs = 0
     vendors_estadistica = dict()
 
     for vendor in vendors:
-        tot_vendors += vendors[vendor]
+        tot_macs += vendors[vendor]
 
     for vendor in vendors:
-        porc = vendors[vendor]*100/tot_vendors
+        porc = vendors[vendor]*100/tot_macs
         vendors_estadistica[vendor] = {'cantidad': vendors[vendor], 'porcentaje' : porc}
 
 
@@ -44,6 +44,9 @@ def buscar_vendor(mac):
         elif mac.find("-") != -1:
             mac = mac[:mac.find("-")] + mac[mac.find("-") + 1:]
 
+    mac = mac.upper() # paso a MAY
+    mac = mac.replace(" ", "") # saco espacios intermedios
+
     #tabla_mac-vendor1.txt
     f = open('tabla_mac-vendor1.txt', 'r', encoding="utf8")
 
@@ -75,8 +78,12 @@ print("el vendor es: " + buscar_vendor("30-52-CB-31-1C-31")) #tabla_mac-vendor1.
 
 print("el vendor es: " + buscar_vendor("A4B818")) # tabla_mac-vendor2.txt
 
-print("el vendor es: " + buscar_vendor("A4aBsa818")) # no existe
+print("el vendor es: " + buscar_vendor("3052CB"))
 
+print("el vendor es: " + buscar_vendor("94:cc:b9:10"))
+
+print("el vendor es: " + buscar_vendor("01:00:5e:00:00:fb"))  # no la reconoce
+print("el vendor es: " + buscar_vendor("70:ec:e4:b7"))
 print(buscar_vendors_cant())
 """
 {
