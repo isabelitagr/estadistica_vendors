@@ -1,3 +1,6 @@
+import fileinput
+
+
 def realizar_estadistica():
     vendors = buscar_vendors_cant()
     tot_macs = 0
@@ -9,7 +12,6 @@ def realizar_estadistica():
     for vendor in vendors:
         porc = vendors[vendor]*100/tot_macs
         vendors_estadistica[vendor] = {'cantidad': vendors[vendor], 'porcentaje' : porc}
-
 
     print(vendors_estadistica)
 
@@ -72,7 +74,22 @@ def buscar_vendor(mac):
     return vendor
 
 
+def generar_archivo_macs():
+    with open('macs_wireshark.txt') as oldfile, open('macs.txt', 'a') as newfile:
+        for line in oldfile:
+            if line == '"Address","Packets","Bytes","Packets A → B","Bytes A → B","Packets B → A","Bytes B → A"':
+                continue
+            else:
+                if line.find("Address") != -1:  #lo puse de vuelta y de esta forma porque no se por que encuentra Address y packets otra vez
+                    continue
+                line = line[1:18]
+                newfile.write(line)
+                newfile.write("\n")
+
+
 # -------------------------------------
+
+generar_archivo_macs()
 
 print("el vendor es: " + buscar_vendor("30-52-CB-31-1C-31")) #tabla_mac-vendor1.txt
 
