@@ -1,5 +1,5 @@
 import fileinput
-
+import pprint
 
 def realizar_estadistica():
     vendors = buscar_vendors_cant()
@@ -13,7 +13,9 @@ def realizar_estadistica():
         porc = vendors[vendor]*100/tot_macs
         vendors_estadistica[vendor] = {'cantidad': vendors[vendor], 'porcentaje' : porc}
 
-    print(vendors_estadistica)
+    pp = pprint.PrettyPrinter(indent=2)
+    pp.pprint(vendors_estadistica)
+    #print(vendors_estadistica)
 
 
 def buscar_vendors_cant():
@@ -90,8 +92,10 @@ def generar_archivo_macs():
 # -------------------------------------
 
 generar_archivo_macs()
-
-print("el vendor es: " + buscar_vendor("30-52-CB-31-1C-31")) #tabla_mac-vendor1.txt
+#-------------------
+# pruebas
+"""
+print("el vendor es: " + buscar_vendor("30-52-CB")) #tabla_mac-vendor1.txt
 
 print("el vendor es: " + buscar_vendor("A4B818")) # tabla_mac-vendor2.txt
 
@@ -102,7 +106,7 @@ print("el vendor es: " + buscar_vendor("94:cc:b9:10"))
 print("el vendor es: " + buscar_vendor("01:00:5e:00:00:fb"))  # no la reconoce
 print("el vendor es: " + buscar_vendor("70:ec:e4:b7"))
 print(buscar_vendors_cant())
-"""
+
 {
     'Liteon Technology Corporation': 4,
     'Shanghai Reallytek Information Technology Co.,Ltd': 1,
@@ -111,9 +115,7 @@ print(buscar_vendors_cant())
     'Morion Inc.': 1
 }
 """
-
-print('-----------------------------\n-----------------------------\n')
-
+print(buscar_vendor("00-1A-8F-30-"))
 realizar_estadistica() #solo hace falta llamar a este metodo. Los otros eran para ir probando
 """
 {
